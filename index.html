@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แนะนำตัว - นาย อานน</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .card-container {
+            position: relative;
+            z-index: 1;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 480px;
+            width: 90vw;
+            text-align: center;
+            color: #fff;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: cardEntry 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 16px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-img-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #ff6b6b);
+            background-size: 400% 400%;
+            animation: gradientSpin 3s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientSpin {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(15, 12, 41, 0.8);
+            animation: imgPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes imgPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(255, 107, 107, 0.2); }
+        }
+
+        .name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shineText 3s linear infinite;
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .info-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .info-item:nth-child(1) { animation-delay: 0.3s; }
+        .info-item:nth-child(2) { animation-delay: 0.5s; }
+        .info-item:nth-child(3) { animation-delay: 0.7s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(6px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .info-icon {
+            font-size: 1.6rem;
+            width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .egg-section {
+            margin-top: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .egg-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .egg-emoji {
+            font-size: 2.2rem;
+            animation: bounce 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .egg-emoji:nth-child(2) { animation-delay: 0.2s; }
+        .egg-emoji:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .footer-text {
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="profile-img-wrapper">
+                <img src="profile.jpg" alt="รูปโปรไฟล์ของอานน" class="profile-img">
+            </div>
+
+            <h1 class="name">นาย อานน</h1>
+            <p class="subtitle">✨ แนะนำตัว ✨</p>
+
+            <ul class="info-list">
+                <li class="info-item">
+                    <span class="info-icon">👤</span>
+                    <div>
+                        <span class="info-label">ชื่อ</span>
+                        <span class="info-text">นาย อานน</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <span class="info-icon">🎂</span>
+                    <div>
+                        <span class="info-label">อายุ</span>
+                        <span class="info-text">15 ปี</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <span class="info-icon">🥚</span>
+                    <div>
+                        <span class="info-label">อาหารโปรด</span>
+                        <span class="info-text">ไข่ต้ม 🍳</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="egg-section">
+                <div class="egg-title">ชอบกินไข่ต้มมากก!</div>
+                <span class="egg-emoji">🥚</span>
+                <span class="egg-emoji">🍳</span>
+                <span class="egg-emoji">🥚</span>
+            </div>
+
+            <p class="footer-text">Made with ❤️ by อานน</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = particle.style.height = (Math.random() * 5 + 2) + 'px';
+            particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
